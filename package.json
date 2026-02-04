@@ -1,6 +1,31 @@
 {
+  "name": "med-to-sen",
+  "version": "1.0.0",
+  "description": "# Immutable State Toolkit (TypeScript)",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
   "devDependencies": {
+    "@swc/core": "^1.15.11",
+    "@swc/jest": "^0.2.39",
+    "@types/jest": "^30.0.0",
+    "jest": "^30.2.0",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UncleGabi/med-to-sen.git"
+  },
+  "author": "UncleGabi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/UncleGabi/med-to-sen/issues"
+  },
+  "homepage": "https://github.com/UncleGabi/med-to-sen#readme",
+  "dependencies": {
+    "ts-node": "^10.9.2"
   }
 }

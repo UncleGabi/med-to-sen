@@ -3,7 +3,7 @@ export type Path = readonly PathKey[];
 export type PlainObject = Record<string, unknown>;
 export type Container = Record<string, unknown> | unknown[];
 export type SetInProps = {
-  obj: Record<string, unknown> | Array<unknown>;
+  obj: Container;
   path: PathKey[];
   value: unknown;
 };

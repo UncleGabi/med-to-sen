@@ -6,11 +6,15 @@ import {
   HandleArrayObjectProps,
   HandlePlainObjectProps,
   HandleLeafUpdateProps,
-} from "./state-utils.d";
+} from "./state-utils.types";
 
 function setIn({ obj, path, value }: SetInProps): unknown {
   if (!path.length) {
     return value;
+  }
+
+  if (!isContainer(obj)) {
+    throw new Error("setIn: obj must be container");
   }
 
   const [key, ...rest] = path;
@@ -34,11 +38,15 @@ function getIn(state: unknown, path: PathKey[]): unknown {
     return state;
   }
 
-  const [key, ...rest] = path; // key user
+  const [key, ...rest] = path;
+
+  if (!isContainer(state)) {
+    return undefined;
+  }
 
   if (rest.length === 0) {
     if (isPlainObject(state)) {
-      return state[key];
+      return state[String(key)];
     }
 
     if (Array.isArray(state)) {
@@ -143,12 +151,6 @@ function handleArrayObject(props: HandleArrayObjectProps) {
 
 function handlePlainObject(props: HandlePlainObjectProps) {
   const { key, nextKey, obj, path, value } = props;
-
-  if (typeof key !== "string") {
-    // type guard to ensure key is string for plain objects
-    throw new Error("Unexpected key type for object");
-  }
-
   const currentKey = String(key);
   const currentChild = obj[currentKey];
 
@@ -167,6 +169,8 @@ function handlePlainObject(props: HandlePlainObjectProps) {
 
   return { ...obj, [currentKey]: nextChild };
 }
+
+export { setIn, getIn, updateIn };
 
 // const exampleObject = { user: { profile: { name: "G" } }, theme: "dark" };
 // const exampleAfterChange = setIn({
